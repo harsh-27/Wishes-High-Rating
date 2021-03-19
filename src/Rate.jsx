@@ -44,13 +44,13 @@ function Rate() {
         var res = axios.post("http://localhost:5000/nrating", data).then(response => {
             res = {
                 userD: (response.data),
-                handle: handle
+                userName: userName
             };
         }).then(() => {
             sessionStorage.setItem("userD", JSON.stringify(res.userD));
-            sessionStorage.setItem("handle", res.handle);
+            sessionStorage.setItem("userName", res.userName);
             setUserData(res.userD);
-            setHandle(res.handle);
+            setUserName(res.userName);
             toogleSet(true);
         })
         // console.log(res);
@@ -61,16 +61,17 @@ function Rate() {
         let quesData = {
             name: todoQues.name,
             contestId: todoQues.contestId,
-            handle: handle
+            userName: userName
         }
         if (quesData.name !== '') {
-            var response;
             axios.post("http://localhost:5000/list", quesData).then(async (res) => {
                 // response = res;
-                // console.log(res);
+                console.log("todolistttttt     \n" + res);
                 await callData(userName, password, handle);
                 setLoading(false);
                 setToDoList(res.data);
+
+                // console.log("todolist "+ toDoList);
             })
 
         }
@@ -80,7 +81,7 @@ function Rate() {
     useEffect(() => {
         if (window.sessionStorage.getItem('userD')) {
             setUserData(JSON.parse(window.sessionStorage.getItem('userD')));
-            setHandle(window.sessionStorage.getItem('handle'));
+            setUserName(window.sessionStorage.getItem('userName'));
         }
     }, []);
 
@@ -89,7 +90,7 @@ function Rate() {
             let quesData = {
                 name: "",
                 contestId: "",
-                handle: handle
+                userName: userName
             }
             axios.post("http://localhost:5000/list", quesData).then(response => {
                 setToDoList(response.data);
@@ -103,7 +104,7 @@ function Rate() {
         let quesData = {
             name: removeQues.name,
             contestId: removeQues.contestId,
-            handle: handle
+            userName: userName
         }
         if (quesData.contestId !== '') {
             axios.post("http://localhost:5000/uwlist", quesData).then(async response => {
@@ -169,7 +170,7 @@ function Rate() {
         //setLogout(true);
         sessionStorage.clear();
         setUserData(null);
-        setHandle('');
+        setUserName('');
         toogleSet(false);
         //setLogout(false);
     }
@@ -221,7 +222,7 @@ function Rate() {
                 <div>
 
                     <div className="row">
-                        <h1 className="column" id="h11">User Rating: {userData.rating}</h1>
+
                         <button id="buttonclass" className="column" onClick={logout} >Logout</button>
                     </div>
 
@@ -230,7 +231,10 @@ function Rate() {
                         <div className="row">
                             {loading ? <div className="loading" /> : null}
                             {userData.ques == 0 ?
-                                <h1 className="h11">You Have not solved any question Yet</h1>
+                                <div>
+                                    <h1 className="column" id="h11">User Rating: {userData.rating}</h1>
+                                    <h1 className="h11">You Have not solved any question Yet</h1>
+                                </div>
                                 : <div>
                                     <div className="column">
                                         <h1 className="h11">Questions: </h1>
@@ -238,7 +242,7 @@ function Rate() {
                                     </div>
                                     <div className="column">
                                         <h1 className="h11">To Do List</h1>
-                                        {toDoList != null ? toDoList.map(showToDoList) : null}
+                                        {toDoList == null ? null : toDoList.map(showToDoList)}
                                     </div>
                                 </div>
 

@@ -25,13 +25,6 @@ function Rate() {
         event.preventDefault();
         var res = await callData(userName, password, handle);
         setLoading(false);
-        // console.log(res);
-
-        // sessionStorage.setItem("userD", JSON.stringify(res.userD));
-        // sessionStorage.setItem("handle", res.handle);
-        // setUserData(res.userD);
-        // setHandle(res.handle);
-        // toogleSet(true);
     }
 
     function callData(userName, password, handle) {
@@ -129,13 +122,6 @@ function Rate() {
             name: document.getElementById(event.target.id).id,
             contestId: document.getElementById(event.target.id).value
         });
-        // setLoading(false);
-        // var temp = await abc(event);
-        // console.log(toDoList);
-        // var res = await callData(userName, password, handle);
-
-        // document.getElementById(event.target.id).disabled = true;
-        // document.getElementById(event.target.value).disabled = true;
     }
 
     function handleclick(event) {
@@ -147,14 +133,6 @@ function Rate() {
             name: document.getElementById(event.target.id).value,
             contestId: document.getElementById(event.target.id).id
         });
-        // setLoading(false);
-        // if (document.getElementById(event.target.id) !== null) {
-        //     document.getElementById(event.target.id).disabled = true
-        // }
-
-        // if (document.getElementById(event.target.value) !== null) {
-        //     document.getElementById(event.target.value).disabled = true
-        // }
     }
 
     function show(e, index) {
@@ -222,7 +200,7 @@ function Rate() {
                 <div>
 
                     <div className="row">
-
+                        <h1 className="column" id="h11">User Rating: {userData.rating > 0 ? userData.rating : "NA"}</h1>
                         <button id="buttonclass" className="column" onClick={logout} >Logout</button>
                     </div>
 
@@ -231,10 +209,7 @@ function Rate() {
                         <div className="row">
                             {loading ? <div className="loading" /> : null}
                             {userData.ques == 0 ?
-                                <div>
-                                    <h1 className="column" id="h11">User Rating: {userData.rating}</h1>
-                                    <h1 className="h11">You Have not solved any question Yet</h1>
-                                </div>
+                                <h1 className="h11">You Have not solved any question Yet</h1>
                                 : <div>
                                     <div className="column">
                                         <h1 className="h11">Questions: </h1>

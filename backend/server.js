@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require("dotenv").config();
 const https = require('https');
 const cors = require('cors');
 const app = express();
@@ -430,7 +431,7 @@ app.post("/nrating", function (req, res) {
 // })
 
 
-app.listen(5000, function (req, res) {
+app.listen(process.env.PORT || 5000, function (req, res) {
     console.log("Server is runnung at port 5000")
 })
 //db.lsamples.update({"handle":"abc123"},{ $push: { "rejList": "Hello" }});
